@@ -1,2 +1,2 @@
-# image-magnifier
+# Enlarger
 A image magnifier library.
