@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.3.1
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.3.0...v1.3.1)
+
+### 🏡 Chore
+
+- **docs:** Update readme ([de242be](https://github.com/vcjs-dev/enlarger/commit/de242be))
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.3.0
 
 [compare changes](https://undefined/undefined/compare/v1.2.0...v1.3.0)
