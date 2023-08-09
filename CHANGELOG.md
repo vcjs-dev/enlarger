@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.0
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.3.7...v1.4.0)
+
+### 🚀 Enhancements
+
+- Add example, fix setOptions type and mask size ([83e8abc](https://github.com/vcjs-dev/enlarger/commit/83e8abc))
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.3.7
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.3.6...v1.3.7)
