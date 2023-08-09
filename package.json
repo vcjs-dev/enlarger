@@ -38,8 +38,8 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "publish": "changelogen --release && npm publish --access=public && git push --follow-tags",
-    "release": "npm run build:lib && npm run build:type && npm run publish",
+    "release:no-build": "changelogen --release && npm publish --access=public && git push --follow-tags",
+    "release": "npm run build:lib && npm run build:type && npm run release:no-build",
     "build:app": "cross-env BUILD_TYPE=app vite build",
     "build:lib": "cross-env BUILD_TYPE=lib vite build",
     "build:type": "rollup -c rollup.dts.config.js"
