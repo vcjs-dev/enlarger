@@ -16,10 +16,7 @@ const init = () => {
     enlarger.value = createEnlarger({
       container: enlargerContainer.value,
       src: demoURL,
-      width: 300,
-      // height: 822,
-      // maskWidth: 150,
-      // maskHeight: 220,
+      width: 600,
     })
   }
 }

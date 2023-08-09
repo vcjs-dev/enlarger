@@ -7,16 +7,25 @@ import { ERRORS } from './ERRORS'
 import { addClass, css } from 'fourdom'
 
 class Enlarger implements EnlargerInstance {
+  userOptions: EnlargerOptions = {
+    container: '',
+    src: '',
+  }
+
   options: Required<EnlargerOptions> = {
     container: '',
     src: '',
     alt: '',
     width: 0,
     height: 0,
-    maskColor: 'rgba(255, 255, 0, 0.4)',
+    magnifyImgScaleUpTimes: 2,
+    maskColor: 'rgba(255, 255, 255, 0.2)',
     maskWidth: 0,
     maskHeight: 0,
-    magnifyImgScaleUpTimes: 2,
+    maskCursor: 'crosshair',
+    maskBorderColor: '#bbb',
+    maskBorderWidth: '1px',
+    maskBorderStyle: 'solid',
   }
 
   maskVisible = false
@@ -30,34 +39,55 @@ class Enlarger implements EnlargerInstance {
 
   containerEl: HTMLElement | null = null
 
-  constructor(opts?: EnlargerOptions) {
-    this.options = Object.assign(this.options, opts)
+  constructor(opts: EnlargerOptions) {
+    this.userOptions = opts
 
     this.maskVisibleListener = this.maskVisibleListener.bind(this)
     this.magnifyListener = this.magnifyListener.bind(this)
 
-    this.getImageNaturalSize(this.options.src, () => {
-      this.magnifyImgWidthScaleUpTimes = opts?.width
-        ? this.imgNaturalWidth / opts.width
-        : this.options.magnifyImgScaleUpTimes
-
-      this.options.width =
-        opts?.width || this.imgNaturalWidth / this.magnifyImgWidthScaleUpTimes
-
-      this.magnifyImgHeightScaleUpTimes = opts?.height
-        ? this.imgNaturalHeight / opts.height
-        : this.magnifyImgWidthScaleUpTimes
-
-      this.options.height =
-        opts?.height ||
-        this.imgNaturalHeight / this.magnifyImgHeightScaleUpTimes
-
-      this.options.maskWidth = this.options.maskWidth || this.options.width / 2
-      this.options.maskHeight =
-        this.options.maskHeight || this.options.width / 2
-
+    this.getImageNaturalSize(opts.src, () => {
       this.render()
     })
+  }
+
+  setOptions(opts: EnlargerOptions) {
+    this.userOptions = Object.assign(this.userOptions, opts)
+    this.render()
+    return this
+  }
+
+  setWidth(width: number) {
+    this.userOptions = Object.assign(this.userOptions, { width })
+    this.render()
+    return this
+  }
+
+  setHeight(height: number) {
+    this.userOptions = Object.assign(this.userOptions, { height })
+    this.render()
+    return this
+  }
+
+  initOptions() {
+    const opts = this.userOptions
+    this.options = Object.assign(this.options, opts)
+
+    this.magnifyImgWidthScaleUpTimes = opts?.width
+      ? this.imgNaturalWidth / opts.width
+      : this.options.magnifyImgScaleUpTimes
+
+    this.options.width =
+      opts?.width || this.imgNaturalWidth / this.magnifyImgWidthScaleUpTimes
+
+    this.magnifyImgHeightScaleUpTimes = opts?.height
+      ? this.imgNaturalHeight / opts.height
+      : this.magnifyImgWidthScaleUpTimes
+
+    this.options.height =
+      opts?.height || this.imgNaturalHeight / this.magnifyImgHeightScaleUpTimes
+
+    this.options.maskWidth = this.options.maskWidth || this.options.width / 2
+    this.options.maskHeight = this.options.maskHeight || this.options.width / 2
   }
 
   initCSSVars(): void {
@@ -68,6 +98,10 @@ class Enlarger implements EnlargerInstance {
       '--enlarger-mask-color': this.options.maskColor,
       '--enlarger-mask-width': `${this.options.maskWidth}px`,
       '--enlarger-mask-height': `${this.options.maskHeight}px`,
+      '--enlarger-mask-border-width': this.options.maskBorderWidth,
+      '--enlarger-mask-border-color': this.options.maskBorderColor,
+      '--enlarger-mask-border-style': this.options.maskBorderStyle,
+      '--enlarger-mask-cursor': this.options.maskCursor,
       '--enlarger-magnify-width': `${
         this.options.maskWidth * this.magnifyImgWidthScaleUpTimes
       }px`,
@@ -96,9 +130,9 @@ class Enlarger implements EnlargerInstance {
 
     try {
       this.containerEl =
-        typeof this.options.container === 'string'
-          ? (document.querySelector(this.options.container) as HTMLElement)
-          : this.options.container
+        typeof this.userOptions.container === 'string'
+          ? (document.querySelector(this.userOptions.container) as HTMLElement)
+          : this.userOptions.container
     } catch (err) {
       throw Error(ERRORS.getContainerError)
     }
@@ -212,7 +246,12 @@ class Enlarger implements EnlargerInstance {
   }
 
   render() {
+    this.initOptions()
+    this.initCSSVars()
+
     const containerEl = this.getContainer()
+
+    addClass(containerEl, 'enlarger-container')
 
     const content = `
       <div class="enlarger-main">
@@ -223,10 +262,6 @@ class Enlarger implements EnlargerInstance {
         <img src="${this.options.src}" alt="${this.options.alt}" class="enlarger-magnify__img" />
       </div>
     `
-
-    addClass(containerEl, 'enlarger-container')
-
-    this.initCSSVars()
 
     containerEl.innerHTML = content
 

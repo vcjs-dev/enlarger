@@ -18,10 +18,13 @@
       position: absolute;
       top: 0;
       left: 0;
-      cursor: move;
       width: var(--enlarger-mask-width);
       height: var(--enlarger-mask-height);
       background-color: var(--enlarger-mask-color);
+      border-width: var(--enlarger-mask-border-width);
+      border-style: var(--enlarger-mask-border-style);
+      border-color: var(--enlarger-mask-border-color);
+      cursor: var(--enlarger-mask-cursor);
     }
   }
 
