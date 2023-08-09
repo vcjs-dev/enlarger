@@ -25,6 +25,11 @@ class Enlarger implements EnlargerInstance {
 
   imgNaturalHeight = 0
 
+  magnifyImgWidthScaleUpTimes = 1
+  magnifyImgHeightScaleUpTimes = 1
+
+  containerEl: HTMLElement | null = null
+
   constructor(opts?: EnlargerOptions) {
     this.options = Object.assign(this.options, opts)
 
@@ -32,13 +37,20 @@ class Enlarger implements EnlargerInstance {
     this.magnifyListener = this.magnifyListener.bind(this)
 
     this.getImageNaturalSize(this.options.src, () => {
+      this.magnifyImgWidthScaleUpTimes = opts?.width
+        ? this.imgNaturalWidth / opts.width
+        : this.options.magnifyImgScaleUpTimes
+
       this.options.width =
-        opts?.width ||
-        this.imgNaturalWidth / this.options.magnifyImgScaleUpTimes
+        opts?.width || this.imgNaturalWidth / this.magnifyImgWidthScaleUpTimes
+
+      this.magnifyImgHeightScaleUpTimes = opts?.height
+        ? this.imgNaturalHeight / opts.height
+        : this.magnifyImgWidthScaleUpTimes
 
       this.options.height =
         opts?.height ||
-        this.imgNaturalHeight / this.options.magnifyImgScaleUpTimes
+        this.imgNaturalHeight / this.magnifyImgHeightScaleUpTimes
 
       this.options.maskWidth = this.options.maskWidth || this.options.width / 2
       this.options.maskHeight =
@@ -57,10 +69,10 @@ class Enlarger implements EnlargerInstance {
       '--enlarger-mask-width': `${this.options.maskWidth}px`,
       '--enlarger-mask-height': `${this.options.maskHeight}px`,
       '--enlarger-magnify-width': `${
-        this.options.maskWidth * this.options.magnifyImgScaleUpTimes
+        this.options.maskWidth * this.magnifyImgWidthScaleUpTimes
       }px`,
       '--enlarger-magnify-height': `${
-        this.options.maskHeight * this.options.magnifyImgScaleUpTimes
+        this.options.maskHeight * this.magnifyImgHeightScaleUpTimes
       }px`,
       '--enlarger-magnify-img-width': `${this.imgNaturalWidth}px`,
       '--enlarger-magnify-img-height': `${this.imgNaturalHeight}px`,
@@ -80,23 +92,25 @@ class Enlarger implements EnlargerInstance {
   }
 
   getContainer() {
-    const el =
-      typeof this.options.container === 'string'
-        ? (document.querySelector(this.options.container) as HTMLElement)
-        : this.options.container
+    if (this.containerEl) return this.containerEl
 
-    if (!el) {
+    try {
+      this.containerEl =
+        typeof this.options.container === 'string'
+          ? (document.querySelector(this.options.container) as HTMLElement)
+          : this.options.container
+    } catch (err) {
       throw Error(ERRORS.getContainerError)
     }
 
-    return el
+    return this.containerEl
   }
 
   getMaskEl() {
     const el = this.getContainer().querySelector('.enlarger-main__mask')
 
     if (!el) {
-      throw Error('')
+      throw Error(ERRORS.getMaskElError)
     }
 
     return el as HTMLElement
@@ -106,7 +120,7 @@ class Enlarger implements EnlargerInstance {
     const el = this.getContainer().querySelector('.enlarger-main')
 
     if (!el) {
-      throw Error('')
+      throw Error(ERRORS.getEnlargerMainElError)
     }
 
     return el as HTMLElement
@@ -116,7 +130,7 @@ class Enlarger implements EnlargerInstance {
     const el = this.getContainer().querySelector('.enlarger-magnify')
 
     if (!el) {
-      throw Error('')
+      throw Error(ERRORS.getMagnifyContainerError)
     }
 
     return el as HTMLElement
@@ -126,7 +140,7 @@ class Enlarger implements EnlargerInstance {
     const el = this.getContainer().querySelector('.enlarger-magnify__img')
 
     if (!el) {
-      throw Error('')
+      throw Error(ERRORS.getMagnifyImgElError)
     }
 
     return el as HTMLImageElement

@@ -16,6 +16,11 @@ export interface EnlargerInstance {
   imgNaturalWidth: number
   imgNaturalHeight: number
 
+  containerEl: HTMLElement | null
+
+  magnifyImgWidthScaleUpTimes: number
+  magnifyImgHeightScaleUpTimes: number
+
   getImageNaturalSize(src: string, cb?: () => void): void
   getContainer(): HTMLElement
   render(): void
