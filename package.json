@@ -25,6 +25,10 @@
   "files": [
     "lib"
   ],
+  "repository": {
+    "url": "https://github.com/vcjs-dev/enlarger"
+  },
+  "homepage": "https://github.com/vcjs-dev/enlarger",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -34,7 +38,8 @@
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "release": "npm run build:lib && npm run build:type && changelogen --release && npm publish --access=public && git push --follow-tags",
+    "publish": "changelogen --release && npm publish --access=public && git push --follow-tags",
+    "release": "npm run build:lib && npm run build:type && npm run publish",
     "build:app": "cross-env BUILD_TYPE=app vite build",
     "build:lib": "cross-env BUILD_TYPE=lib vite build",
     "build:type": "rollup -c rollup.dts.config.js"
