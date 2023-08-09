@@ -23,7 +23,7 @@ class Enlarger implements EnlargerInstance {
     maskWidth: 0,
     maskHeight: 0,
     maskCursor: 'crosshair',
-    maskBorderColor: '#bbb',
+    maskBorderColor: '#bbbbbb',
     maskBorderWidth: '1px',
     maskBorderStyle: 'solid',
   }
@@ -50,7 +50,7 @@ class Enlarger implements EnlargerInstance {
     })
   }
 
-  setOptions(opts: EnlargerOptions) {
+  setOptions(opts: Partial<EnlargerOptions>) {
     this.userOptions = Object.assign(this.userOptions, opts)
     this.render()
     return this
@@ -86,8 +86,10 @@ class Enlarger implements EnlargerInstance {
     this.options.height =
       opts?.height || this.imgNaturalHeight / this.magnifyImgHeightScaleUpTimes
 
-    this.options.maskWidth = this.options.maskWidth || this.options.width / 2
-    this.options.maskHeight = this.options.maskHeight || this.options.width / 2
+    this.options.maskWidth =
+      this.userOptions.maskWidth || this.options.width / 2
+    this.options.maskHeight =
+      this.userOptions.maskHeight || this.options.width / 2
   }
 
   initCSSVars(): void {

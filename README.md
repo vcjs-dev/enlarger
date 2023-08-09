@@ -72,7 +72,7 @@ const imageEnlarger = createEnlarger({
 | `maskWidth` | `number` | Half the `width` of the image | Define the width of the mask. |
 | `maskHeight` | `number` | Half the `height` of the image | Define the height of the mask. |
 | `maskCursor` | `string` | `crosshair` | Define the cursor style of the mask. |
-| `maskBorderColor` | `string` | `#bbb` | Define the border color of the mask. |
+| `maskBorderColor` | `string` | `#bbbbbb` | Define the border color of the mask. |
 | `maskBorderWidth` | `string` | `1px` | Define the border width of the mask. |
 | `maskBorderStyle` | `string` | `solid` | Define the border width of the mask. |
 

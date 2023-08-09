@@ -40,7 +40,7 @@ export interface EnlargerInstance {
   getMagnifyImgEl(): HTMLImageElement
   initCSSVars(): void
   initOptions(): void
-  setOptions(opts: EnlargerOptions): EnlargerInstance
+  setOptions(opts: Partial<EnlargerOptions>): EnlargerInstance
   setWidth(width: number): EnlargerInstance
   setHeight(height: number): EnlargerInstance
 }
