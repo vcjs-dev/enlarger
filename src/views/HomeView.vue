@@ -16,11 +16,10 @@ const init = () => {
     enlarger.value = createEnlarger({
       container: enlargerContainer.value,
       src: demoURL,
-      width: 600,
-      height: 822,
-      maskWidth: 150,
-      maskHeight: 220,
-      magnifyTimes: 2.8,
+      // width: 600,
+      // height: 822,
+      // maskWidth: 150,
+      // maskHeight: 220,
     })
   }
 }

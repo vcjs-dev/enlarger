@@ -30,6 +30,7 @@
     overflow: hidden;
     width: var(--enlarger-magnify-width);
     height: var(--enlarger-magnify-height);
+    display: none;
 
     &__img {
       position: absolute;

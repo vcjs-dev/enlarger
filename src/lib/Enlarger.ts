@@ -16,21 +16,67 @@ class Enlarger implements EnlargerInstance {
     maskColor: 'rgba(255, 255, 0, 0.4)',
     maskWidth: 0,
     maskHeight: 0,
-    magnifyTimes: 2,
+    magnifyImgScaleUpTimes: 2,
   }
 
   maskVisible = false
 
+  imgNaturalWidth = 0
+
+  imgNaturalHeight = 0
+
   constructor(opts?: EnlargerOptions) {
     this.options = Object.assign(this.options, opts)
-
-    this.options.maskWidth = this.options.maskWidth || this.options.width / 2
-    this.options.maskHeight = this.options.maskHeight || this.options.width / 2
 
     this.maskVisibleListener = this.maskVisibleListener.bind(this)
     this.magnifyListener = this.magnifyListener.bind(this)
 
-    this.render()
+    this.getImageNaturalSize(this.options.src, () => {
+      this.options.width =
+        opts?.width ||
+        this.imgNaturalWidth / this.options.magnifyImgScaleUpTimes
+
+      this.options.height =
+        opts?.height ||
+        this.imgNaturalHeight / this.options.magnifyImgScaleUpTimes
+
+      this.options.maskWidth = this.options.maskWidth || this.options.width / 2
+      this.options.maskHeight =
+        this.options.maskHeight || this.options.width / 2
+
+      this.render()
+    })
+  }
+
+  initCSSVars(): void {
+    const containerEl = this.getContainer()
+    css(containerEl, {
+      '--enlarger-width': `${this.options.width}px`,
+      '--enlarger-height': `${this.options.height}px`,
+      '--enlarger-mask-color': this.options.maskColor,
+      '--enlarger-mask-width': `${this.options.maskWidth}px`,
+      '--enlarger-mask-height': `${this.options.maskHeight}px`,
+      '--enlarger-magnify-width': `${
+        this.options.maskWidth * this.options.magnifyImgScaleUpTimes
+      }px`,
+      '--enlarger-magnify-height': `${
+        this.options.maskHeight * this.options.magnifyImgScaleUpTimes
+      }px`,
+      '--enlarger-magnify-img-width': `${this.imgNaturalWidth}px`,
+      '--enlarger-magnify-img-height': `${this.imgNaturalHeight}px`,
+    })
+  }
+
+  getImageNaturalSize(src: string, cb?: () => void): void {
+    const img = new Image()
+    img.src = src
+
+    this.imgNaturalWidth = img.naturalWidth || img.width
+    this.imgNaturalHeight = img.naturalHeight || img.height
+
+    img.onload = () => {
+      cb && cb()
+    }
   }
 
   getContainer() {
@@ -87,15 +133,15 @@ class Enlarger implements EnlargerInstance {
   }
 
   maskVisibleListener() {
-    const maskEl = this.getMaskEl()
-
     this.maskVisible = !this.maskVisible
 
-    if (maskEl) {
-      css(maskEl, {
-        display: this.maskVisible ? 'block' : 'none',
-      })
-    }
+    css(this.getMaskEl(), {
+      display: this.maskVisible ? 'block' : 'none',
+    })
+
+    css(this.getMagnifyContainer(), {
+      display: this.maskVisible ? 'block' : 'none',
+    })
   }
 
   magnifyListener(e: MouseEvent) {
@@ -152,6 +198,8 @@ class Enlarger implements EnlargerInstance {
   }
 
   render() {
+    const containerEl = this.getContainer()
+
     const content = `
       <div class="enlarger-main">
         <img src="${this.options.src}" alt="${this.options.alt}" class="enlarger-main__img" />
@@ -162,29 +210,9 @@ class Enlarger implements EnlargerInstance {
       </div>
     `
 
-    const containerEl = this.getContainer()
-
     addClass(containerEl, 'enlarger-container')
 
-    css(containerEl, {
-      '--enlarger-width': `${this.options.width}px`,
-      '--enlarger-height': `${this.options.height}px`,
-      '--enlarger-mask-color': this.options.maskColor,
-      '--enlarger-mask-width': `${this.options.maskWidth}px`,
-      '--enlarger-mask-height': `${this.options.maskHeight}px`,
-      '--enlarger-magnify-width': `${
-        this.options.maskWidth * this.options.magnifyTimes
-      }px`,
-      '--enlarger-magnify-height': `${
-        this.options.maskHeight * this.options.magnifyTimes
-      }px`,
-      '--enlarger-magnify-img-width': `${
-        this.options.width * this.options.magnifyTimes
-      }px`,
-      '--enlarger-magnify-img-height': `${
-        this.options.height * this.options.magnifyTimes
-      }px`,
-    })
+    this.initCSSVars()
 
     containerEl.innerHTML = content
 
