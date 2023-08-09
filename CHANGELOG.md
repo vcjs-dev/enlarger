@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.2.0
+
+[compare changes](https://undefined/undefined/compare/v1.1.0...v1.2.0)
+
+### 🚀 Enhancements
+
+- Exports style.css (b23cb95)
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.1.0
 
 
