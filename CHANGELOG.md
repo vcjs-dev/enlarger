@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v1.3.6
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.3.5...v1.3.6)
+
 ## v1.3.5
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.3.4...v1.3.5)
