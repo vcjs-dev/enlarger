@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.3.7
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.3.6...v1.3.7)
+
+### 🩹 Fixes
+
+- Publish scripts ([7578e32](https://github.com/vcjs-dev/enlarger/commit/7578e32))
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.3.6
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.3.5...v1.3.6)
