@@ -19,7 +19,8 @@
       "types": "./lib/index.d.ts",
       "require": "./lib/enlarger.cjs",
       "import": "./lib/enlarger.js"
-    }
+    },
+    "./lib/style.css": "./lib/style.css"
   },
   "files": [
     "lib"
