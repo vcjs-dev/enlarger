@@ -24,6 +24,15 @@
           />
         </div>
         <div class="form-item">
+          <label class="form-item__label">resizeable: </label>
+          <input
+            type="checkbox"
+            v-model="config.resizeable"
+            @change="handleConfigChange"
+            class="form-item__control"
+          />
+        </div>
+        <div class="form-item">
           <label class="form-item__label">maskColor: </label>
           <input
             type="text"
@@ -33,19 +42,10 @@
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">maskWidth: </label>
+          <label class="form-item__label">maskTimesSmallerThanImage: </label>
           <input
             type="number"
-            v-model="config.maskWidth"
-            @change="handleConfigChange"
-            class="form-item__control"
-          />
-        </div>
-        <div class="form-item">
-          <label class="form-item__label">maskHeight: </label>
-          <input
-            type="number"
-            v-model="config.maskHeight"
+            v-model="config.maskTimesSmallerThanImage"
             @change="handleConfigChange"
             class="form-item__control"
           />
@@ -105,12 +105,12 @@ const config = ref<EnlargerOptions>({
   width: 600,
   src: demoURL,
   maskColor: 'rgba(255, 255, 255, 0.2)',
-  maskWidth: 200,
-  maskHeight: 250,
+  maskTimesSmallerThanImage: 2,
   maskBorderWidth: '1px',
   maskBorderStyle: 'solid',
   maskBorderColor: '#bbbbbb',
   maskCursor: 'crosshair',
+  resizeable: false,
 })
 
 const init = () => {

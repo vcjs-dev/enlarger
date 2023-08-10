@@ -18,26 +18,28 @@ class Enlarger implements EnlargerInstance {
     alt: '',
     width: 0,
     height: 0,
+    resizeable: false,
     magnifyImgScaleUpTimes: 2,
     maskColor: 'rgba(255, 255, 255, 0.2)',
-    maskWidth: 0,
-    maskHeight: 0,
+    maskTimesSmallerThanImage: 2,
     maskCursor: 'crosshair',
     maskBorderColor: '#bbbbbb',
     maskBorderWidth: '1px',
     maskBorderStyle: 'solid',
   }
 
+  maskWidth = 0
+  maskHeight = 0
   maskVisible = false
-
   imgNaturalWidth = 0
-
   imgNaturalHeight = 0
 
   magnifyImgWidthScaleUpTimes = 1
   magnifyImgHeightScaleUpTimes = 1
 
   containerEl: HTMLElement | null = null
+
+  resizeObserver: ResizeObserver | null = null
 
   constructor(opts: EnlargerOptions) {
     this.userOptions = { ...opts }
@@ -46,6 +48,7 @@ class Enlarger implements EnlargerInstance {
     this.magnifyListener = this.magnifyListener.bind(this)
 
     this.getImageNaturalSize(opts.src, () => {
+      this.initResizeObserver()
       this.render()
     })
   }
@@ -68,6 +71,17 @@ class Enlarger implements EnlargerInstance {
     return this
   }
 
+  initResizeObserver() {
+    this.resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const target = entry.target as HTMLElement
+        this.setWidth(target.offsetWidth)
+      }
+    })
+
+    this.resizeObserver.observe(this.getContainer())
+  }
+
   initOptions() {
     const opts = this.userOptions
     this.options = Object.assign(this.options, opts)
@@ -86,30 +100,33 @@ class Enlarger implements EnlargerInstance {
     this.options.height =
       opts?.height || this.imgNaturalHeight / this.magnifyImgHeightScaleUpTimes
 
-    this.options.maskWidth =
-      this.userOptions.maskWidth || this.options.width / 2
-    this.options.maskHeight =
-      this.userOptions.maskHeight || this.options.width / 2
+    this.maskWidth = this.options.width / this.options.maskTimesSmallerThanImage
+    this.maskHeight =
+      this.options.width / this.options.maskTimesSmallerThanImage
   }
 
-  initCSSVars(): void {
+  initCSSVars() {
     const containerEl = this.getContainer()
 
+    const width = this.options.resizeable ? 'auto' : `${this.options.width}px`
+    const height = this.options.resizeable ? 'auto' : `${this.options.height}px`
+
     css(containerEl, {
-      '--enlarger-width': `${this.options.width}px`,
-      '--enlarger-height': `${this.options.height}px`,
+      '--enlarger-width': width,
+      '--enlarger-height': height,
       '--enlarger-mask-color': this.options.maskColor,
-      '--enlarger-mask-width': `${this.options.maskWidth}px`,
-      '--enlarger-mask-height': `${this.options.maskHeight}px`,
+      '--enlarger-mask-width': `${this.maskWidth}px`,
+      '--enlarger-mask-height': `${this.maskHeight}px`,
       '--enlarger-mask-border-width': this.options.maskBorderWidth,
       '--enlarger-mask-border-color': this.options.maskBorderColor,
       '--enlarger-mask-border-style': this.options.maskBorderStyle,
       '--enlarger-mask-cursor': this.options.maskCursor,
+      '--enlarger-magnify-position-left': `${this.options.width + 10}px`,
       '--enlarger-magnify-width': `${
-        this.options.maskWidth * this.magnifyImgWidthScaleUpTimes
+        this.maskWidth * this.magnifyImgWidthScaleUpTimes
       }px`,
       '--enlarger-magnify-height': `${
-        this.options.maskHeight * this.magnifyImgHeightScaleUpTimes
+        this.maskHeight * this.magnifyImgHeightScaleUpTimes
       }px`,
       '--enlarger-magnify-img-width': `${this.imgNaturalWidth}px`,
       '--enlarger-magnify-img-height': `${this.imgNaturalHeight}px`,
@@ -275,6 +292,7 @@ class Enlarger implements EnlargerInstance {
 
   destory() {
     this.removeListeners()
+    this.resizeObserver?.unobserve(this.getContainer())
   }
 }
 

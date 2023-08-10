@@ -65,12 +65,12 @@ const imageEnlarger = createEnlarger({
 | `container` | `HTMLElement`, `string` | `''` | Specify container elements. |
 | `src` | `string` | `''` | Specify the `src` of `<img />`. |
 | `alt` | `string` | `''` | Specify the `alt` of `<img />`. |
+| `resizeable` | `boolean` | `false` | Specify whether the image is **adaptive** in size. If set to `true`, `width` and `height` config will not be available. |
 | `width` | `number` | `0` | Initialize the **width** of the image. |
 | `height` | `number` | `0` | Initialize the **height** of the image. **Height** is not necessary because it will automatically adapt based on the **width** value.|
 | `magnifyImgScaleUpTimes` | `number` | `2` | Define the magnification of the image. |
 | `maskColor` | `string` | `rgba(255, 255, 255, 0.2)` | Define the background color of the mask. |
-| `maskWidth` | `number` | Half the `width` of the image | Define the width of the mask. |
-| `maskHeight` | `number` | Half the `height` of the image | Define the height of the mask. |
+| `maskTimesSmallerThanImage` | `number` | `2` | Define Times that Smaller than Image of mask size. |
 | `maskCursor` | `string` | `crosshair` | Define the cursor style of the mask. |
 | `maskBorderColor` | `string` | `#bbbbbb` | Define the border color of the mask. |
 | `maskBorderWidth` | `string` | `1px` | Define the border width of the mask. |

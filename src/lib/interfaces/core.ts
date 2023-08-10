@@ -4,10 +4,10 @@ export interface EnlargerOptions {
   alt?: string
   width?: number
   height?: number
+  resizeable?: boolean
   magnifyImgScaleUpTimes?: number
   maskColor?: string
-  maskWidth?: number
-  maskHeight?: number
+  maskTimesSmallerThanImage?: number
   maskCursor?: string
   maskBorderWidth?: string
   maskBorderColor?: string
@@ -17,11 +17,14 @@ export interface EnlargerOptions {
 export interface EnlargerInstance {
   userOptions: EnlargerOptions
   options: Required<EnlargerOptions>
+  maskWidth: number
+  maskHeight: number
   maskVisible: boolean
   imgNaturalWidth: number
   imgNaturalHeight: number
 
   containerEl: HTMLElement | null
+  resizeObserver: ResizeObserver | null
 
   magnifyImgWidthScaleUpTimes: number
   magnifyImgHeightScaleUpTimes: number
@@ -40,6 +43,7 @@ export interface EnlargerInstance {
   getMagnifyImgEl(): HTMLImageElement
   initCSSVars(): void
   initOptions(): void
+  initResizeObserver(): void
   setOptions(opts: Partial<EnlargerOptions>): EnlargerInstance
   setWidth(width: number): EnlargerInstance
   setHeight(height: number): EnlargerInstance
