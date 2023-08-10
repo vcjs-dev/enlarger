@@ -24,10 +24,10 @@
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">resizeable: </label>
+          <label class="form-item__label">autoSize: </label>
           <input
             type="checkbox"
-            v-model="config.resizeable"
+            v-model="config.autoSize"
             @change="handleConfigChange"
             class="form-item__control"
           />
@@ -42,10 +42,13 @@
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">maskTimesSmallerThanImage: </label>
+          <label class="form-item__label">maskSizeRatio: </label>
           <input
             type="number"
-            v-model="config.maskTimesSmallerThanImage"
+            v-model="config.maskSizeRatio"
+            :max="1"
+            :min="0"
+            :step="0.1"
             @change="handleConfigChange"
             class="form-item__control"
           />
@@ -105,12 +108,12 @@ const config = ref<EnlargerOptions>({
   width: 600,
   src: demoURL,
   maskColor: 'rgba(255, 255, 255, 0.2)',
-  maskTimesSmallerThanImage: 2,
+  maskSizeRatio: 0.5,
   maskBorderWidth: '1px',
   maskBorderStyle: 'solid',
   maskBorderColor: '#bbbbbb',
   maskCursor: 'crosshair',
-  resizeable: false,
+  autoSize: false,
 })
 
 const init = () => {

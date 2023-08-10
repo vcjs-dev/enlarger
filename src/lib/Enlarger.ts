@@ -18,10 +18,10 @@ class Enlarger implements EnlargerInstance {
     alt: '',
     width: 0,
     height: 0,
-    resizeable: false,
+    autoSize: false,
     magnifyImgScaleUpTimes: 2,
     maskColor: 'rgba(255, 255, 255, 0.2)',
-    maskTimesSmallerThanImage: 2,
+    maskSizeRatio: 0.5,
     maskCursor: 'crosshair',
     maskBorderColor: '#bbbbbb',
     maskBorderWidth: '1px',
@@ -75,7 +75,7 @@ class Enlarger implements EnlargerInstance {
     this.resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const target = entry.target as HTMLElement
-        this.setWidth(target.offsetWidth)
+        this.options.autoSize && this.setWidth(target.offsetWidth)
       }
     })
 
@@ -100,16 +100,15 @@ class Enlarger implements EnlargerInstance {
     this.options.height =
       opts?.height || this.imgNaturalHeight / this.magnifyImgHeightScaleUpTimes
 
-    this.maskWidth = this.options.width / this.options.maskTimesSmallerThanImage
-    this.maskHeight =
-      this.options.width / this.options.maskTimesSmallerThanImage
+    this.maskWidth = this.options.width * this.options.maskSizeRatio
+    this.maskHeight = this.options.width * this.options.maskSizeRatio
   }
 
   initCSSVars() {
     const containerEl = this.getContainer()
 
-    const width = this.options.resizeable ? 'auto' : `${this.options.width}px`
-    const height = this.options.resizeable ? 'auto' : `${this.options.height}px`
+    const width = this.options.autoSize ? 'auto' : `${this.options.width}px`
+    const height = this.options.autoSize ? 'auto' : `${this.options.height}px`
 
     css(containerEl, {
       '--enlarger-width': width,

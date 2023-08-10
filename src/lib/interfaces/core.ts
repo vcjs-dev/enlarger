@@ -4,10 +4,10 @@ export interface EnlargerOptions {
   alt?: string
   width?: number
   height?: number
-  resizeable?: boolean
+  autoSize?: boolean
   magnifyImgScaleUpTimes?: number
   maskColor?: string
-  maskTimesSmallerThanImage?: number
+  maskSizeRatio?: number
   maskCursor?: string
   maskBorderWidth?: string
   maskBorderColor?: string
