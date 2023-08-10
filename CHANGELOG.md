@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.5.0
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.4.1...v1.5.0)
+
+### 🚀 Enhancements
+
+- Image reposive support, change mask size setting via `maskTimesSmallerThanImage` ([602a3b7](https://github.com/vcjs-dev/enlarger/commit/602a3b7))
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.4.1
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.4.0...v1.4.1)
