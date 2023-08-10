@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.4.1
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.4.0...v1.4.1)
+
+### 🩹 Fixes
+
+- Get image natural size error ([f85ee13](https://github.com/vcjs-dev/enlarger/commit/f85ee13))
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.4.0
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.3.7...v1.4.0)
