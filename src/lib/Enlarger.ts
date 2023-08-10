@@ -40,7 +40,7 @@ class Enlarger implements EnlargerInstance {
   containerEl: HTMLElement | null = null
 
   constructor(opts: EnlargerOptions) {
-    this.userOptions = opts
+    this.userOptions = { ...opts }
 
     this.maskVisibleListener = this.maskVisibleListener.bind(this)
     this.magnifyListener = this.magnifyListener.bind(this)
@@ -94,6 +94,7 @@ class Enlarger implements EnlargerInstance {
 
   initCSSVars(): void {
     const containerEl = this.getContainer()
+
     css(containerEl, {
       '--enlarger-width': `${this.options.width}px`,
       '--enlarger-height': `${this.options.height}px`,
@@ -119,10 +120,10 @@ class Enlarger implements EnlargerInstance {
     const img = new Image()
     img.src = src
 
-    this.imgNaturalWidth = img.naturalWidth || img.width
-    this.imgNaturalHeight = img.naturalHeight || img.height
-
     img.onload = () => {
+      this.imgNaturalWidth = img.naturalWidth || img.width
+      this.imgNaturalHeight = img.naturalHeight || img.height
+
       cb && cb()
     }
   }
@@ -233,6 +234,8 @@ class Enlarger implements EnlargerInstance {
 
   registorListeners() {
     const enlargerMainEl = this.getEnlargerMainEl()
+
+    this.removeListeners()
 
     enlargerMainEl.addEventListener('mouseover', this.maskVisibleListener)
     enlargerMainEl.addEventListener('mouseout', this.maskVisibleListener)

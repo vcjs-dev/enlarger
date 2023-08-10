@@ -10,7 +10,7 @@
 
 # Enlarger
 
-A image magnifier library.
+A image enlarger library for web app. See [example](https://vcjs-dev.github.io/enlarger/) here.
 
 # Features
 

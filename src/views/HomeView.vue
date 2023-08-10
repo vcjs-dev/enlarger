@@ -119,6 +119,8 @@ const init = () => {
       ...config.value,
       container: enlargerContainer.value,
     })
+
+    console.log('init:', enlarger.value)
   }
 }
 
