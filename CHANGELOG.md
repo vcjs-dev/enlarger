@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.7.0
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.6.0...v1.7.0)
+
+### 🚀 Enhancements
+
+- Refactor dom className and API name ([2b5eec7](https://github.com/vcjs-dev/enlarger/commit/2b5eec7))
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.6.0
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.5.0...v1.6.0)
