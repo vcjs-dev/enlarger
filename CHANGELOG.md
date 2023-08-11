@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.8.0
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.7.1...v1.8.0)
+
+### 🚀 Enhancements
+
+- Rename `magnifyImgScaleUpTimes` to `magnification` and update CSS vars name ([2161aa5](https://github.com/vcjs-dev/enlarger/commit/2161aa5))
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.7.1
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.7.0...v1.7.1)
