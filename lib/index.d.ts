@@ -5,7 +5,7 @@ interface EnlargerOptions {
   width?: number
   height?: number
   autoSize?: boolean
-  magnifyImgScaleUpTimes?: number
+  magnification?: number
   magnifierColor?: string
   magnifierSizeRatio?: number
   magnifierCursor?: string
@@ -26,8 +26,8 @@ interface EnlargerInstance {
   containerEl: HTMLElement | null
   resizeObserver: ResizeObserver | null
 
-  magnifyImgWidthScaleUpTimes: number
-  magnifyImgHeightScaleUpTimes: number
+  widthMagnification: number
+  heightMagnification: number
 
   getImageNaturalSize(src: string, cb?: () => void): void
   getContainer(): HTMLElement
@@ -53,4 +53,4 @@ type CreateEnlarger = (opts: EnlargerOptions) => EnlargerInstance
 
 declare const createEnlarger: CreateEnlarger
 
-export { EnlargerInstance, EnlargerOptions, createEnlarger };
+export { EnlargerInstance, EnlargerOptions, createEnlarger }

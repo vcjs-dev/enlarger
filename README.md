@@ -68,7 +68,7 @@ const imageEnlarger = createEnlarger({
 | `autoSize` | `boolean` | `false` | Specify whether the image is **adaptive** in size. If set to `true`, `width` and `height` config will not be available. |
 | `width` | `number` | `0` | Initialize the **width** of the image. |
 | `height` | `number` | `0` | Initialize the **height** of the image. **Height** is not necessary because it will automatically adapt based on the **width** value.|
-| `magnifyImgScaleUpTimes` | `number` | `2` | Define the magnification of the image. |
+| `magnification` | `number` | `2` | Define the magnification of the image. |
 | `magnifierColor` | `string` | `rgba(255, 255, 255, 0.2)` | Define the background color of the magnifier element. |
 | `magnifierSizeRatio` | `number` | `0.5` | Define magnifier element size ratio equivalent to image size. |
 | `magnifierCursor` | `string` | `crosshair` | Define the cursor style of the magnifier element. |

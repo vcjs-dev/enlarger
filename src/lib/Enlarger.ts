@@ -20,7 +20,7 @@ class Enlarger implements EnlargerInstance {
     width: 0,
     height: 0,
     autoSize: false,
-    magnifyImgScaleUpTimes: 2,
+    magnification: 2,
     magnifierColor: 'rgba(255, 255, 255, 0.2)',
     magnifierSizeRatio: 0.5,
     magnifierCursor: 'crosshair',
@@ -35,8 +35,8 @@ class Enlarger implements EnlargerInstance {
   imgNaturalWidth = 0
   imgNaturalHeight = 0
 
-  magnifyImgWidthScaleUpTimes = 1
-  magnifyImgHeightScaleUpTimes = 1
+  widthMagnification = 1
+  heightMagnification = 1
 
   containerEl: HTMLElement | null = null
 
@@ -87,19 +87,19 @@ class Enlarger implements EnlargerInstance {
     const opts = this.userOptions
     this.options = Object.assign(this.options, opts)
 
-    this.magnifyImgWidthScaleUpTimes = opts?.width
+    this.widthMagnification = opts?.width
       ? this.imgNaturalWidth / opts.width
-      : this.options.magnifyImgScaleUpTimes
+      : this.options.magnification
 
     this.options.width =
-      opts?.width || this.imgNaturalWidth / this.magnifyImgWidthScaleUpTimes
+      opts?.width || this.imgNaturalWidth / this.widthMagnification
 
-    this.magnifyImgHeightScaleUpTimes = opts?.height
+    this.heightMagnification = opts?.height
       ? this.imgNaturalHeight / opts.height
-      : this.magnifyImgWidthScaleUpTimes
+      : this.widthMagnification
 
     this.options.height =
-      opts?.height || this.imgNaturalHeight / this.magnifyImgHeightScaleUpTimes
+      opts?.height || this.imgNaturalHeight / this.heightMagnification
 
     this.magnifierWidth = this.options.width * this.options.magnifierSizeRatio
     this.magnifierHeight = this.options.width * this.options.magnifierSizeRatio
@@ -121,15 +121,15 @@ class Enlarger implements EnlargerInstance {
       '--enlarger-magnifier-border-color': this.options.magnifierBorderColor,
       '--enlarger-magnifier-border-style': this.options.magnifierBorderStyle,
       '--enlarger-magnifier-cursor': this.options.magnifierCursor,
-      '--enlarger-magnify-position-left': `${this.options.width + 10}px`,
-      '--enlarger-magnify-width': `${
-        this.magnifierWidth * this.magnifyImgWidthScaleUpTimes
+      '--enlarger-preview-position-left': `${this.options.width + 10}px`,
+      '--enlarger-preview-width': `${
+        this.magnifierWidth * this.widthMagnification
       }px`,
-      '--enlarger-magnify-height': `${
-        this.magnifierHeight * this.magnifyImgHeightScaleUpTimes
+      '--enlarger-preview-height': `${
+        this.magnifierHeight * this.heightMagnification
       }px`,
-      '--enlarger-magnify-img-width': `${this.imgNaturalWidth}px`,
-      '--enlarger-magnify-img-height': `${this.imgNaturalHeight}px`,
+      '--enlarger-preview-img-width': `${this.imgNaturalWidth}px`,
+      '--enlarger-preview-img-height': `${this.imgNaturalHeight}px`,
     })
   }
 

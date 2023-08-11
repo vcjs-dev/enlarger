@@ -32,17 +32,17 @@
   .enlarger-preview {
     position: absolute;
     top: 0px;
-    left: calc(var(--enlarger-magnify-position-left) + 10px);
+    left: calc(var(--enlarger-preview-position-left) + 10px);
     overflow: hidden;
-    width: var(--enlarger-magnify-width);
-    height: var(--enlarger-magnify-height);
+    width: var(--enlarger-preview-width);
+    height: var(--enlarger-preview-height);
     display: none;
 
     &__inner {
       position: absolute;
       display: block;
-      width: var(--enlarger-magnify-img-width);
-      height: var(--enlarger-magnify-img-height);
+      width: var(--enlarger-preview-img-width);
+      height: var(--enlarger-preview-img-height);
     }
   }
 }
