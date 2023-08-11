@@ -166,7 +166,7 @@ class Enlarger implements EnlargerInstance {
     )
 
     if (!el) {
-      throw Error(ERRORS.getMaskElError)
+      throw Error(ERRORS.getMagnifierElError)
     }
 
     return el as HTMLElement
@@ -178,7 +178,7 @@ class Enlarger implements EnlargerInstance {
     )
 
     if (!el) {
-      throw Error(ERRORS.getEnlargerMainElError)
+      throw Error(ERRORS.getEnlargerImageWrapperElError)
     }
 
     return el as HTMLElement
@@ -190,7 +190,7 @@ class Enlarger implements EnlargerInstance {
     )
 
     if (!el) {
-      throw Error(ERRORS.getMagnifyContainerError)
+      throw Error(ERRORS.getPreviewContainerError)
     }
 
     return el as HTMLElement
@@ -202,7 +202,7 @@ class Enlarger implements EnlargerInstance {
     )
 
     if (!el) {
-      throw Error(ERRORS.getMagnifyImgElError)
+      throw Error(ERRORS.getPreviewImgElError)
     }
 
     return el as HTMLImageElement

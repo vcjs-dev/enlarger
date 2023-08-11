@@ -1,7 +1,7 @@
 export enum ERRORS {
   getContainerError = 'container element is missing.',
-  getMaskElError = 'magnifier element is missing.',
-  getEnlargerMainElError = 'enlarger main element is missing.',
-  getMagnifyContainerError = 'magnify container element is missing.',
-  getMagnifyImgElError = 'magnify img element is missing.',
+  getMagnifierElError = 'magnifier element is missing.',
+  getEnlargerImageWrapperElError = 'enlarger image wrapper element is missing.',
+  getPreviewContainerError = 'preview container element is missing.',
+  getPreviewImgElError = 'preview <img /> element is missing.',
 }
