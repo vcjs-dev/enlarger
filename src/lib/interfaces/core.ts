@@ -6,20 +6,20 @@ export interface EnlargerOptions {
   height?: number
   autoSize?: boolean
   magnifyImgScaleUpTimes?: number
-  maskColor?: string
-  maskSizeRatio?: number
-  maskCursor?: string
-  maskBorderWidth?: string
-  maskBorderColor?: string
-  maskBorderStyle?: string
+  magnifierColor?: string
+  magnifierSizeRatio?: number
+  magnifierCursor?: string
+  magnifierBorderWidth?: string
+  magnifierBorderColor?: string
+  magnifierBorderStyle?: string
 }
 
 export interface EnlargerInstance {
   userOptions: EnlargerOptions
   options: Required<EnlargerOptions>
-  maskWidth: number
-  maskHeight: number
-  maskVisible: boolean
+  magnifierWidth: number
+  magnifierHeight: number
+  magnifierVisible: boolean
   imgNaturalWidth: number
   imgNaturalHeight: number
 
@@ -33,14 +33,14 @@ export interface EnlargerInstance {
   getContainer(): HTMLElement
   render(): void
   destory(): void
-  maskVisibleListener(): void
-  getMaskEl(): HTMLElement
+  magnifierVisibleListener(): void
+  getMagnifierEl(): HTMLElement
   registorListeners(): void
   removeListeners(): void
-  getEnlargerMainEl(): HTMLElement
-  magnifyListener(e: MouseEvent): void
-  getMagnifyContainer(): HTMLElement
-  getMagnifyImgEl(): HTMLImageElement
+  getEnlargerImageWrapperEl(): HTMLElement
+  previewListener(e: MouseEvent): void
+  getPreviewEl(): HTMLElement
+  getPreviewImgEl(): HTMLImageElement
   initCSSVars(): void
   initOptions(): void
   initResizeObserver(): void

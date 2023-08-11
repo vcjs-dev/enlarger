@@ -4,6 +4,7 @@ import type {
   EnlargerInstance,
 } from './interfaces/core'
 import { ERRORS } from './ERRORS'
+import { CONSTANTS } from './CONSTANTS'
 import { addClass, css } from 'fourdom'
 
 class Enlarger implements EnlargerInstance {
@@ -20,17 +21,17 @@ class Enlarger implements EnlargerInstance {
     height: 0,
     autoSize: false,
     magnifyImgScaleUpTimes: 2,
-    maskColor: 'rgba(255, 255, 255, 0.2)',
-    maskSizeRatio: 0.5,
-    maskCursor: 'crosshair',
-    maskBorderColor: '#bbbbbb',
-    maskBorderWidth: '1px',
-    maskBorderStyle: 'solid',
+    magnifierColor: 'rgba(255, 255, 255, 0.2)',
+    magnifierSizeRatio: 0.5,
+    magnifierCursor: 'crosshair',
+    magnifierBorderColor: '#bbbbbb',
+    magnifierBorderWidth: '1px',
+    magnifierBorderStyle: 'solid',
   }
 
-  maskWidth = 0
-  maskHeight = 0
-  maskVisible = false
+  magnifierWidth = 0
+  magnifierHeight = 0
+  magnifierVisible = false
   imgNaturalWidth = 0
   imgNaturalHeight = 0
 
@@ -44,8 +45,8 @@ class Enlarger implements EnlargerInstance {
   constructor(opts: EnlargerOptions) {
     this.userOptions = { ...opts }
 
-    this.maskVisibleListener = this.maskVisibleListener.bind(this)
-    this.magnifyListener = this.magnifyListener.bind(this)
+    this.magnifierVisibleListener = this.magnifierVisibleListener.bind(this)
+    this.previewListener = this.previewListener.bind(this)
 
     this.getImageNaturalSize(opts.src, () => {
       this.initResizeObserver()
@@ -100,8 +101,8 @@ class Enlarger implements EnlargerInstance {
     this.options.height =
       opts?.height || this.imgNaturalHeight / this.magnifyImgHeightScaleUpTimes
 
-    this.maskWidth = this.options.width * this.options.maskSizeRatio
-    this.maskHeight = this.options.width * this.options.maskSizeRatio
+    this.magnifierWidth = this.options.width * this.options.magnifierSizeRatio
+    this.magnifierHeight = this.options.width * this.options.magnifierSizeRatio
   }
 
   initCSSVars() {
@@ -113,19 +114,19 @@ class Enlarger implements EnlargerInstance {
     css(containerEl, {
       '--enlarger-width': width,
       '--enlarger-height': height,
-      '--enlarger-mask-color': this.options.maskColor,
-      '--enlarger-mask-width': `${this.maskWidth}px`,
-      '--enlarger-mask-height': `${this.maskHeight}px`,
-      '--enlarger-mask-border-width': this.options.maskBorderWidth,
-      '--enlarger-mask-border-color': this.options.maskBorderColor,
-      '--enlarger-mask-border-style': this.options.maskBorderStyle,
-      '--enlarger-mask-cursor': this.options.maskCursor,
+      '--enlarger-magnifier-color': this.options.magnifierColor,
+      '--enlarger-magnifier-width': `${this.magnifierWidth}px`,
+      '--enlarger-magnifier-height': `${this.magnifierHeight}px`,
+      '--enlarger-magnifier-border-width': this.options.magnifierBorderWidth,
+      '--enlarger-magnifier-border-color': this.options.magnifierBorderColor,
+      '--enlarger-magnifier-border-style': this.options.magnifierBorderStyle,
+      '--enlarger-magnifier-cursor': this.options.magnifierCursor,
       '--enlarger-magnify-position-left': `${this.options.width + 10}px`,
       '--enlarger-magnify-width': `${
-        this.maskWidth * this.magnifyImgWidthScaleUpTimes
+        this.magnifierWidth * this.magnifyImgWidthScaleUpTimes
       }px`,
       '--enlarger-magnify-height': `${
-        this.maskHeight * this.magnifyImgHeightScaleUpTimes
+        this.magnifierHeight * this.magnifyImgHeightScaleUpTimes
       }px`,
       '--enlarger-magnify-img-width': `${this.imgNaturalWidth}px`,
       '--enlarger-magnify-img-height': `${this.imgNaturalHeight}px`,
@@ -159,8 +160,10 @@ class Enlarger implements EnlargerInstance {
     return this.containerEl
   }
 
-  getMaskEl() {
-    const el = this.getContainer().querySelector('.enlarger-main__mask')
+  getMagnifierEl() {
+    const el = this.getContainer().querySelector(
+      `.${CONSTANTS.enlargerMagnifierClassName}`,
+    )
 
     if (!el) {
       throw Error(ERRORS.getMaskElError)
@@ -169,8 +172,10 @@ class Enlarger implements EnlargerInstance {
     return el as HTMLElement
   }
 
-  getEnlargerMainEl() {
-    const el = this.getContainer().querySelector('.enlarger-main')
+  getEnlargerImageWrapperEl() {
+    const el = this.getContainer().querySelector(
+      `.${CONSTANTS.enlargerImageWrapperClassName}`,
+    )
 
     if (!el) {
       throw Error(ERRORS.getEnlargerMainElError)
@@ -179,8 +184,10 @@ class Enlarger implements EnlargerInstance {
     return el as HTMLElement
   }
 
-  getMagnifyContainer() {
-    const el = this.getContainer().querySelector('.enlarger-magnify')
+  getPreviewEl() {
+    const el = this.getContainer().querySelector(
+      `.${CONSTANTS.enlargerPreviewClassName}`,
+    )
 
     if (!el) {
       throw Error(ERRORS.getMagnifyContainerError)
@@ -189,8 +196,10 @@ class Enlarger implements EnlargerInstance {
     return el as HTMLElement
   }
 
-  getMagnifyImgEl() {
-    const el = this.getContainer().querySelector('.enlarger-magnify__img')
+  getPreviewImgEl() {
+    const el = this.getContainer().querySelector(
+      `.${CONSTANTS.enlargerPreviewImageClassName}`,
+    )
 
     if (!el) {
       throw Error(ERRORS.getMagnifyImgElError)
@@ -199,32 +208,32 @@ class Enlarger implements EnlargerInstance {
     return el as HTMLImageElement
   }
 
-  maskVisibleListener() {
-    this.maskVisible = !this.maskVisible
+  magnifierVisibleListener() {
+    this.magnifierVisible = !this.magnifierVisible
 
-    css(this.getMaskEl(), {
-      display: this.maskVisible ? 'block' : 'none',
+    css(this.getMagnifierEl(), {
+      display: this.magnifierVisible ? 'block' : 'none',
     })
 
-    css(this.getMagnifyContainer(), {
-      display: this.maskVisible ? 'block' : 'none',
+    css(this.getPreviewEl(), {
+      display: this.magnifierVisible ? 'block' : 'none',
     })
   }
 
-  magnifyListener(e: MouseEvent) {
+  previewListener(e: MouseEvent) {
     const container = this.getContainer()
-    const mainImgContainer = this.getEnlargerMainEl()
-    const maskEl = this.getMaskEl()
-    const magnifyImgEl = this.getMagnifyImgEl()
+    const mainImgContainer = this.getEnlargerImageWrapperEl()
+    const magnifierEl = this.getMagnifierEl()
+    const magnifyImgEl = this.getPreviewImgEl()
 
     const disX = e.pageX - container.offsetLeft
     const disY = e.pageY - container.offsetTop
 
-    const maxX = container.offsetWidth - maskEl.offsetWidth
-    const maxY = container.offsetHeight - maskEl.offsetHeight
+    const maxX = container.offsetWidth - magnifierEl.offsetWidth
+    const maxY = container.offsetHeight - magnifierEl.offsetHeight
 
-    let x = disX - maskEl.offsetWidth / 2
-    let y = disY - maskEl.offsetHeight / 2
+    let x = disX - magnifierEl.offsetWidth / 2
+    let y = disY - magnifierEl.offsetHeight / 2
 
     if (x <= 0) {
       x = 0
@@ -239,8 +248,8 @@ class Enlarger implements EnlargerInstance {
       y = maxY
     }
 
-    maskEl.style.left = x + 'px'
-    maskEl.style.top = y + 'px'
+    magnifierEl.style.left = x + 'px'
+    magnifierEl.style.top = y + 'px'
 
     magnifyImgEl.style.left =
       (-x / mainImgContainer.offsetWidth) * magnifyImgEl.offsetWidth + 'px'
@@ -249,21 +258,27 @@ class Enlarger implements EnlargerInstance {
   }
 
   registorListeners() {
-    const enlargerMainEl = this.getEnlargerMainEl()
+    const enlargerMainEl = this.getEnlargerImageWrapperEl()
 
     this.removeListeners()
 
-    enlargerMainEl.addEventListener('mouseover', this.maskVisibleListener)
-    enlargerMainEl.addEventListener('mouseout', this.maskVisibleListener)
-    enlargerMainEl.addEventListener('mousemove', this.magnifyListener)
+    enlargerMainEl.addEventListener('mouseover', this.magnifierVisibleListener)
+    enlargerMainEl.addEventListener('mouseout', this.magnifierVisibleListener)
+    enlargerMainEl.addEventListener('mousemove', this.previewListener)
   }
 
   removeListeners() {
-    const enlargerMainEl = this.getEnlargerMainEl()
+    const enlargerMainEl = this.getEnlargerImageWrapperEl()
 
-    enlargerMainEl.removeEventListener('mouseover', this.maskVisibleListener)
-    enlargerMainEl.removeEventListener('mouseout', this.maskVisibleListener)
-    enlargerMainEl.removeEventListener('mousemove', this.magnifyListener)
+    enlargerMainEl.removeEventListener(
+      'mouseover',
+      this.magnifierVisibleListener,
+    )
+    enlargerMainEl.removeEventListener(
+      'mouseout',
+      this.magnifierVisibleListener,
+    )
+    enlargerMainEl.removeEventListener('mousemove', this.previewListener)
   }
 
   render() {
@@ -272,15 +287,15 @@ class Enlarger implements EnlargerInstance {
 
     const containerEl = this.getContainer()
 
-    addClass(containerEl, 'enlarger-container')
+    addClass(containerEl, CONSTANTS.enlargerContainerClassName)
 
     const content = `
-      <div class="enlarger-main">
-        <img src="${this.options.src}" alt="${this.options.alt}" class="enlarger-main__img" />
-        <div class="enlarger-main__mask"></div>
+      <div class="${CONSTANTS.enlargerImageWrapperClassName}">
+        <img src="${this.options.src}" alt="${this.options.alt}" class="${CONSTANTS.enlargerImageClassName}" />
+        <div class="${CONSTANTS.enlargerMagnifierClassName}"></div>
       </div>
-      <div class="enlarger-magnify">
-        <img src="${this.options.src}" alt="${this.options.alt}" class="enlarger-magnify__img" />
+      <div class="${CONSTANTS.enlargerPreviewClassName}">
+        <img src="${this.options.src}" alt="${this.options.alt}" class="${CONSTANTS.enlargerPreviewImageClassName}" />
       </div>
     `
 

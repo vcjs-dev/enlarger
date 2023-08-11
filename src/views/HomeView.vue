@@ -33,19 +33,19 @@
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">maskColor: </label>
+          <label class="form-item__label">magnifierColor: </label>
           <input
             type="text"
-            v-model="config.maskColor"
+            v-model="config.magnifierColor"
             @change="handleConfigChange"
             class="form-item__control"
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">maskSizeRatio: </label>
+          <label class="form-item__label">magnifierSizeRatio: </label>
           <input
             type="number"
-            v-model="config.maskSizeRatio"
+            v-model="config.magnifierSizeRatio"
             :max="1"
             :min="0"
             :step="0.1"
@@ -54,37 +54,37 @@
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">maskBorderColor: </label>
+          <label class="form-item__label">magnifierBorderColor: </label>
           <input
             type="color"
-            v-model="config.maskBorderColor"
+            v-model="config.magnifierBorderColor"
             @change="handleConfigChange"
             class="form-item__control"
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">maskBorderWidth: </label>
+          <label class="form-item__label">magnifierBorderWidth: </label>
           <input
             type="text"
-            v-model="config.maskBorderWidth"
+            v-model="config.magnifierBorderWidth"
             @change="handleConfigChange"
             class="form-item__control"
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">maskBorderStyle: </label>
+          <label class="form-item__label">magnifierBorderStyle: </label>
           <input
             type="text"
-            v-model="config.maskBorderStyle"
+            v-model="config.magnifierBorderStyle"
             @change="handleConfigChange"
             class="form-item__control"
           />
         </div>
         <div class="form-item">
-          <label class="form-item__label">maskCursor: </label>
+          <label class="form-item__label">magnifierCursor: </label>
           <input
             type="text"
-            v-model="config.maskCursor"
+            v-model="config.magnifierCursor"
             @change="handleConfigChange"
             class="form-item__control"
           />
@@ -107,12 +107,12 @@ const config = ref<EnlargerOptions>({
   container: '',
   width: 600,
   src: demoURL,
-  maskColor: 'rgba(255, 255, 255, 0.2)',
-  maskSizeRatio: 0.5,
-  maskBorderWidth: '1px',
-  maskBorderStyle: 'solid',
-  maskBorderColor: '#bbbbbb',
-  maskCursor: 'crosshair',
+  magnifierColor: 'rgba(255, 255, 255, 0.2)',
+  magnifierSizeRatio: 0.5,
+  magnifierBorderWidth: '1px',
+  magnifierBorderStyle: 'solid',
+  magnifierBorderColor: '#bbbbbb',
+  magnifierCursor: 'crosshair',
   autoSize: false,
 })
 
