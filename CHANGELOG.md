@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v1.7.1
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.7.0...v1.7.1)
+
+### 🏡 Chore
+
+- Update error msg ([fbb99c5](https://github.com/vcjs-dev/enlarger/commit/fbb99c5))
+
+### ❤️  Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.7.0
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.6.0...v1.7.0)
