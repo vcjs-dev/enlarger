@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v1.9.0
+
+[compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.8.0...v1.9.0)
+
+### 🚀 Enhancements
+
+- Upgrade all deps to latest version ([fee93e9](https://github.com/vcjs-dev/enlarger/commit/fee93e9))
+
+### 🏡 Chore
+
+- Ignore lib dir ([d69ed3e](https://github.com/vcjs-dev/enlarger/commit/d69ed3e))
+
+### ❤️ Contributors
+
+- Wenqing <wenqing@kerrylan.com>
+
 ## v1.8.0
 
 [compare changes](https://github.com/vcjs-dev/enlarger/compare/v1.7.1...v1.8.0)
