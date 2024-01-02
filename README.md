@@ -10,7 +10,10 @@
 
 # Enlarger
 
-A image enlarger library for web app. See [example](https://vcjs-dev.github.io/enlarger/) here.
+A image enlarger library for web app.
+
+- [Release Notes](./CHANGELOG.md).
+- [Example](https://vcjs-dev.github.io/enlarger/).
 
 # Features
 
@@ -116,7 +119,3 @@ Destory the image enlarger instance.
 ```ts
 imageEnlarger.destory()
 ```
-
-# CHANGE LOG
-
-See [here](./CHANGELOG.md).
