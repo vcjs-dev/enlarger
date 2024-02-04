@@ -165,11 +165,10 @@ onMounted(() => {
   &__label {
     display: flex;
     align-items: center;
-    min-width: 140px;
+    min-width: 180px;
     font-size: 14px;
     font-weight: bold;
     margin-right: 14px;
-    text-align: right;
   }
 
   &__control {
