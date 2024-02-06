@@ -109,7 +109,7 @@ You can modify the height of image via it after initialization.
 > TIPS, Usually, you only need to control the width of the image, and the height is responsive.
 
 ```ts
-imageEnlarger.setHeight(800) // Set the image width to 800
+imageEnlarger.setHeight(800)
 ```
 
 ### destory
